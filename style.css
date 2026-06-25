@@ -1,0 +1,21 @@
+
+@font-face {
+  font-family: 'dogica';
+  src: url('assets/dogicapixelbold.ttf');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'dogica', sans-serif;
+}
+
+body{
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
