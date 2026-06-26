@@ -41,3 +41,7 @@ body{
 .icon-container:hover img {
   transform: scale(1.1);
 }
+
+.cat-body {
+  width: 180px;
+}
