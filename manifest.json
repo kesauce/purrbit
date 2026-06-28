@@ -4,12 +4,13 @@
   "version": "1.0",
   "manifest_version": 3,
   "action": {
-    "default_popup": "home.html"
+    "default_popup": "pages/home.html"
   },
   "web_accessible_resources": [
     {
-      "resources": [ "assets/bgm.wav" ],
+      "resources": [ "../assets/bgm.wav" ],
 	  "matches": [ "<all_urls>" ]
 	}
-	]
+	],
+  "permissions": ["storage"]
 }
