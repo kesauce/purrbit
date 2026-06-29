@@ -8,7 +8,7 @@ export default class Cat {
         this.happiness = 100;
         this.energy = 100;
         this.cleanliness = 100;
-        this.status = "happy";
+        this.status = "Happy";
 	}
     
     // ────── Status Functions ──────

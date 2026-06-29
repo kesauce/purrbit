@@ -15,6 +15,7 @@ async function initialiseGame() {
 	// Rebuilt the Cat object
 	const catInstance = Object.assign(new Cat(), cat);
 	document.getElementById("cat-name").textContent = catInstance.getName();
+	document.getElementById("cat-status").textContent = catInstance.getStatus();
 }
 
 initialiseGame();
