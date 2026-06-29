@@ -16,6 +16,11 @@ async function initialiseGame() {
 	const catInstance = Object.assign(new Cat(), cat);
 	document.getElementById("cat-name").textContent = catInstance.getName();
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
+
+	// Add event listener to fish icon
+	document.getElementById("feed-button").addEventListener("click", () => {
+		window.location.href = "feed.html";
+	});
 }
 
 initialiseGame();

@@ -1,5 +1,5 @@
 {
-  "name": "termicat",
+  "name": "purrbit",
   "description": "Mini Tamagotchi-style Cat Game",
   "version": "1.0",
   "manifest_version": 3,
@@ -8,7 +8,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": [ "../assets/bgm.wav" ],
+      "resources": [ "../assets/bgm/bgm-marimba.wav", "../assets/bgm/bgm-piano.wav" ],
 	  "matches": [ "<all_urls>" ]
 	}
 	],
