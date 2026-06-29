@@ -1,4 +1,4 @@
-import Cat from '../Cat.js';
+import Cat from "../Cat.js";
 
 // ────── Initialise Cat ──────
 async function initialiseGame() {
@@ -17,10 +17,81 @@ async function initialiseGame() {
 	document.getElementById("cat-name").textContent = catInstance.getName();
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
 
+	// Initialise all the navigation HTML
+	const mainNav = `
+		<div class="icon-container">
+			<img id="feed-button" src="../assets/icons/fish.png" />
+		</div>
+		<div class="icon-container">
+			<img src="../assets/icons/brush.png" />
+		</div>
+	`;
+
+	const feedNav = `
+		<div class="icon-container">
+			<img id="fish-button" src="../assets/icons/fish.png" />
+		</div>
+		<div class="icon-container">
+			<img id="canned-button" src="../assets/icons/canned-food.png" />
+		</div>
+		<div class="icon-container">
+			<img id="back-button" src="../assets/icons/back.png" />
+		</div>
+	`;
+	
+	// Setup functions for initialising each button
+	function bindMainNav() {
+		document.getElementById("top-nav").innerHTML = mainNav;
+		document.getElementById("feed-button").addEventListener("click", () => {
+			bindFeedNav();
+		});
+	}
+
+	function bindFeedNav() {
+		document.getElementById("top-nav").innerHTML = feedNav;
+		document.getElementById("back-button").addEventListener("click", () => {
+			bindMainNav();
+		});
+		document.getElementById("fish-button").addEventListener("click", () => {
+			// feed fish logic
+		});
+		document
+			.getElementById("canned-button")
+			.addEventListener("click", () => {
+				// feed canned logic
+			});
+	}
+
+	bindMainNav();
+
 	// Add event listener to fish icon
-	document.getElementById("feed-button").addEventListener("click", () => {
-		window.location.href = "feed.html";
-	});
+	// document.getElementById("feed-button").addEventListener("click", () => {
+	// 	// Change the top-nav div to food icons
+	// 	document.getElementById("top-nav").innerHTML = `
+	// 		<div class="icon-container">
+	// 			<img src="../assets/icons/fish.png" />
+	// 		</div>
+	// 		<div class="icon-container">
+	// 			<img src="../assets/icons/canned-food.png" />
+	// 		</div>
+	// 		<div class="icon-container">
+	// 			<img id="back-button" src="../assets/icons/back.png" />
+	// 		</div>
+
+	// 	`;
+
+	// 	// Add event listeners to each icon
+	// 	document.getElementById("back-button").addEventListener("click", () => {
+	// 		document.getElementById("top-nav").innerHTML = `
+	// 		<div class="icon-container">
+	// 			<img id="feed-button"src="../assets/icons/fish.png" />
+	// 		</div>
+	//         <div class="icon-container">
+	// 			<img src="../assets/icons/brush.png" />
+	// 		</div>
+	// 	`;
+	// 	});
+	// });
 }
 
 initialiseGame();
