@@ -23,7 +23,7 @@ async function initialiseGame() {
 			<img id="feed-button" src="../assets/icons/fish.png" />
 		</div>
 		<div class="icon-container">
-			<img src="../assets/icons/brush.png" />
+			<img id="groom-button" src="../assets/icons/brush.png" />
 		</div>
 	`;
 
@@ -47,6 +47,9 @@ async function initialiseGame() {
 		document.getElementById("top-nav").innerHTML = mainNav;
 		document.getElementById("feed-button").addEventListener("click", () => {
 			bindFeedNav();
+		});
+		document.getElementById("groom-button").addEventListener("click", () => {
+			window.location.href = "groom.html";
 		});
 	}
 
