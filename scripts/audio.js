@@ -13,7 +13,13 @@ let source;
 
 // Plays the music within the audio context
 async function startMusic() {
-	const url = chrome.runtime.getURL("../assets/bgm.wav");
+	// Set the music based on the screen
+	let bgmPath = "../assets/bgm/bgm-marimba.wav";
+	if (window.location.href.includes("create.html")){
+		bgmPath ="../assets/bgm/bgm-piano.wav";
+	}
+
+	const url = chrome.runtime.getURL(bgmPath);
 	const buffer = await loadAudio(url);
 
 	// Creates a player for the buffered audio
