@@ -35,6 +35,9 @@ async function initialiseGame() {
 			<img id="canned-button" src="../assets/icons/canned-food.png" />
 		</div>
 		<div class="icon-container">
+			<img id="treat-button" src="../assets/icons/treat.png" />
+		</div>
+		<div class="icon-container">
 			<img id="back-button" src="../assets/icons/back.png" />
 		</div>
 	`;
@@ -53,45 +56,20 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("fish-button").addEventListener("click", () => {
-			// feed fish logic
+			catInstance.feed(60);
+			bindMainNav();
 		});
-		document
-			.getElementById("canned-button")
-			.addEventListener("click", () => {
-				// feed canned logic
-			});
+		document.getElementById("canned-button").addEventListener("click", () => {
+			catInstance.feed(40);
+			bindMainNav();
+		});
+		document.getElementById("treat-button").addEventListener("click", () => {
+			catInstance.feed(20);
+			bindMainNav();
+		});
 	}
 
 	bindMainNav();
-
-	// Add event listener to fish icon
-	// document.getElementById("feed-button").addEventListener("click", () => {
-	// 	// Change the top-nav div to food icons
-	// 	document.getElementById("top-nav").innerHTML = `
-	// 		<div class="icon-container">
-	// 			<img src="../assets/icons/fish.png" />
-	// 		</div>
-	// 		<div class="icon-container">
-	// 			<img src="../assets/icons/canned-food.png" />
-	// 		</div>
-	// 		<div class="icon-container">
-	// 			<img id="back-button" src="../assets/icons/back.png" />
-	// 		</div>
-
-	// 	`;
-
-	// 	// Add event listeners to each icon
-	// 	document.getElementById("back-button").addEventListener("click", () => {
-	// 		document.getElementById("top-nav").innerHTML = `
-	// 		<div class="icon-container">
-	// 			<img id="feed-button"src="../assets/icons/fish.png" />
-	// 		</div>
-	//         <div class="icon-container">
-	// 			<img src="../assets/icons/brush.png" />
-	// 		</div>
-	// 	`;
-	// 	});
-	// });
 }
 
 initialiseGame();
