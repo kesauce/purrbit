@@ -45,6 +45,12 @@ export default class Cat {
         this.cleanliness += groomValue;
     }
 
+    updateStats() {
+        this.hunger = Math.max(0, this.hunger - 1);
+        this.happiness = Math.max(0, this.happiness - 1);
+        this.energy = Math.max(0, this.energy - 1);
+        this.cleanliness = Math.max(0, this.cleanliness - 1);
+    }
     // ────── Get Functions ──────
 
     getName(){ return this.name; }

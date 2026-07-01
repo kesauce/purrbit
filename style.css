@@ -41,8 +41,107 @@ body {
 	transform: scale(1.1);
 }
 
+.main {
+	position: relative;
+	width: 180px;
+	height: 180px;
+}
+
 .cat-body {
 	width: 180px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.cat-eyes {
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
+}
+
+.cat-tail {
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
+}
+
+.cat-eyes.idle {
+	background-image: url('assets/eyes/eyes-fastblink.PNG');
+	background-size: 540px 180px;
+	animation: play-3 0.8s steps(2) infinite;
+}
+
+.cat-eyes.slowblink {
+	background-image: url('assets/eyes/eyes-slowblink.PNG');
+	background-size: 900px 180px;
+	animation: play-5 0.8s steps(4) forwards;
+}
+
+.cat-eyes.idle-to-excited {
+	background-image: url('assets/eyes/eyes-excited.PNG');
+	background-size: 1080px 180px;
+	animation: play-6 0.8s steps(5) forwards;
+}
+
+.cat-eyes.excited-to-idle {
+	background-image: url('assets/eyes/eyes-excited.PNG');
+	background-size: 1080px 180px;
+	animation: play-6 0.8s steps(5) reverse forwards;
+}
+
+.cat-eyes.idle-to-sleep {
+	background-image: url('assets/eyes/eyes-sleep.PNG');
+	background-size: 900px 180px;
+	animation: play-5 0.8s steps(4) forwards;
+}
+
+.cat-eyes.sleep-to-idle {
+	background-image: url('assets/eyes/eyes-sleep.PNG');
+	background-size: 900px 180px;
+	animation: play-5 0.8s steps(4) reverse forwards;
+}
+
+.cat-eyes.yawn {
+	background-image: url('assets/eyes/eyes-yawn.PNG');
+	background-size: 1080px 180px;
+	animation: play-6 0.8s steps(5) forwards;
+}
+
+.cat-tail.idle {
+	background-image: url('assets/tails/tail-idle.PNG');
+	background-size: 1440px 180px;
+	animation: play-8 1s steps(7) infinite;
+}
+
+.cat-tail.happy {
+    background-image: url('assets/tails/tail-happy.PNG');
+	background-size: 1980px 180px;
+	animation: play-11 1s steps(11) infinite;
+}
+
+.cat-tail.annoyed {
+	background-image: url('assets/tails/tail-annoyed.PNG');
+	background-size: 900px 180px;
+	animation: play-5 1s steps(4) infinite;
+}
+
+.cat-tail.tall-to-flat {
+	background-image: url('assets/tails/tail-to-flat.PNG');
+	background-size: 1620px 180px;
+	animation: play-9 1s steps(8) forwards;
+}
+
+.cat-tail.flat-to-tall {
+	background-image: url('assets/tails/tail-to-tall.PNG');
+	background-size: 1620px 180px;
+	animation: play-9 1s steps(8) forwards;
 }
 
 .bottom-nav{
@@ -52,4 +151,34 @@ body {
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 5px 10px;
+}
+
+@keyframes play-3 {
+	from { background-position: 0 0; }
+	to { background-position: -360px 0; }
+}
+
+@keyframes play-5 {
+	from { background-position: 0 0; }
+	to { background-position: -720px 0; }
+}
+
+@keyframes play-6 {
+	from { background-position: 0 0; }
+	to { background-position: -900px 0; }
+}
+
+@keyframes play-8 {
+	from { background-position: 0 0; }
+	to { background-position: -1260px 0; }
+}
+
+@keyframes play-9 {
+	from { background-position: 0 0; }
+	to { background-position: -1440px 0; }
+}
+
+@keyframes play-11 {
+	from { background-position: 0 0; }
+	to { background-position: -1980px 0; }
 }

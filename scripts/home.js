@@ -76,6 +76,11 @@ async function initialiseGame() {
 
 initialiseGame();
 
+//Update the cat's stats every 5 minutes
+setInterval(() => {
+	catInstance.updateStats();
+}, 1000 * 60 * 5);
+
 //Saves the state when popup is closed
 window.addEventListener("unload", () => {
 	chrome.storage.local.set({ cat: catInstance });
