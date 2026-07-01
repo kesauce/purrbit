@@ -1,5 +1,7 @@
 import Cat from "../Cat.js";
 
+let catInstance;
+
 // ────── Initialise Cat ──────
 async function initialiseGame() {
 	// Check if there's a saved state in the Chrome storage
@@ -13,7 +15,7 @@ async function initialiseGame() {
 	}
 
 	// Rebuilt the Cat object
-	const catInstance = Object.assign(new Cat(), cat);
+	catInstance = Object.assign(new Cat(), cat);
 	document.getElementById("cat-name").textContent = catInstance.getName();
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
 
@@ -73,3 +75,8 @@ async function initialiseGame() {
 }
 
 initialiseGame();
+
+//Saves the state when popup is closed
+window.addEventListener("unload", () => {
+	chrome.storage.local.set({ cat: catInstance });
+});
