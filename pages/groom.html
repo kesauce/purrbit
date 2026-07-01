@@ -18,12 +18,43 @@
 			}
 
 			body {
-				justify-content: flex-start;
+				justify-content: center;
+				align-items: center;
+			}
+
+			#grid {
+				display: grid;
+				grid-template-columns: repeat(3, 40px);
+				gap: 8px;
+			}
+			.hole {
+				aspect-ratio: 1;
+				background: #ddd;
+				border-radius: 8px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.hole.active {
+				border: solid 1px black;
+			}
+
+			.bottom-nav{
+				justify-content: space-between;
+				align-items: center;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>Cleanliness: <span></span></h1>
-        <p>Catch your cat to clean them!</p>
+		<h1>Cleanliness: <span id="score"></span></h1>
+		<p id="subtitle">Catch your cat to clean them!</p>
+		<div id="grid"></div>
+		<div class="bottom-nav">
+			<p id="feedback"></p>
+			<div class="icon-container">
+				<img src="../assets/icons/back.png" id="back-button"/>
+			</div>
+		</div>
 	</body>
 </html>

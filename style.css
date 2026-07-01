@@ -28,6 +28,7 @@ body {
 .icon-container {
 	width: 50px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .icon-container img {
