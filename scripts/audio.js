@@ -18,6 +18,9 @@ async function startMusic() {
 	if (window.location.href.includes("create.html")){
 		bgmPath ="../assets/bgm/bgm-piano.wav";
 	}
+	else if (window.location.href.includes("groom.html")){
+		bgmPath ="../assets/bgm/bgm-strings.wav";
+	}
 
 	const url = chrome.runtime.getURL(bgmPath);
 	const buffer = await loadAudio(url);
