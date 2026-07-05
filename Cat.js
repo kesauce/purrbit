@@ -31,10 +31,14 @@ export default class Cat {
 
     /**
      * Put the cat to sleep and increase energy
-     * @param {number} restValue 
      */
-    rest(restValue){
-        this.energy += restValue;
+    rest(){
+        const restInterval = setInterval(() => {
+            this.energy = Math.min(100, this.energy + 5);
+            if (this.energy >= 80) {
+                clearInterval(restInterval);
+            }
+        }, 1000 * 60);
     }
     
     /**
@@ -45,11 +49,19 @@ export default class Cat {
         this.cleanliness += groomValue;
     }
 
+    pet() {
+        this.happiness = Math.min(100, this.happiness + 5);
+    }
+
     updateStats() {
-        this.hunger = Math.max(0, this.hunger - 1);
+        this.hunger = Math.max(0, this.hunger - 1); //Supposed to be 1, using 20 for testing
         this.happiness = Math.max(0, this.happiness - 1);
         this.energy = Math.max(0, this.energy - 1);
         this.cleanliness = Math.max(0, this.cleanliness - 1);
+    }
+
+    setStatus(mood) {
+        this.status = mood;
     }
     // ────── Get Functions ──────
 

@@ -48,6 +48,16 @@ body {
 	height: 180px;
 }
 
+#cat-head {
+	position: absolute;
+	top: 30px;
+	left: 45px;
+	width: 90px;
+	height: 40px;
+	z-index: 10; /*so it hovers above the head*/
+	cursor: pointer;
+}
+
 .cat-body {
 	width: 180px;
 	position: absolute;
@@ -73,113 +83,194 @@ body {
 	background-repeat: no-repeat;
 }
 
-.cat-eyes.idle {
-	background-image: url('assets/eyes/eyes-fastblink.PNG');
-	background-size: 540px 180px;
-	animation: play-3 0.8s steps(2) infinite;
+.cat-emote {
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
 }
 
-.cat-eyes.slowblink {
-	background-image: url('assets/eyes/eyes-slowblink.PNG');
+/* Eye animations */
+.cat-eyes.idle {
+	background-image: url('assets/eyes/eyes-blink.PNG');
+	background-size: 1440px 180px;
+	animation: play-8-infinite 0.8s steps(8) infinite;
+}
+
+.cat-eyes.hungry, .cat-eyes.bored, .cat-eyes.idle-to-sleep, .cat-eyes.idle-to-annoyed {
+	background-image: url('assets/eyes/eyes-sleep.PNG'); 
 	background-size: 900px 180px;
-	animation: play-5 0.8s steps(4) forwards;
+	animation: play-5-forwards 0.8s steps(4) forwards;
+}
+
+.cat-eyes.happy {
+	background-image: url('assets/eyes/eyes-happy.PNG');
+	background-size: 900px 180px;
+	animation: play-5-forwards 0.8s steps(4) forwards;
+}
+
+.cat-eyes.annoyed {
+	background-image: url('assets/eyes/eyes-annoyed.PNG');
+	background-size: 180px 180px;
 }
 
 .cat-eyes.idle-to-excited {
 	background-image: url('assets/eyes/eyes-excited.PNG');
 	background-size: 1080px 180px;
-	animation: play-6 0.8s steps(5) forwards;
+	animation: play-6-forwards 0.8s steps(5) forwards;
 }
 
 .cat-eyes.excited-to-idle {
 	background-image: url('assets/eyes/eyes-excited.PNG');
 	background-size: 1080px 180px;
-	animation: play-6 0.8s steps(5) reverse forwards;
+	animation: play-6-forwards 0.8s steps(5) reverse forwards;
 }
 
-.cat-eyes.idle-to-sleep {
+/* .cat-eyes.idle-to-sleep {
 	background-image: url('assets/eyes/eyes-sleep.PNG');
 	background-size: 900px 180px;
-	animation: play-5 0.8s steps(4) forwards;
-}
+	animation: play-5-forwards 0.8s steps(4) forwards;
+} */
 
-.cat-eyes.sleep-to-idle {
+.cat-eyes.sleep-to-idle, .cat-eyes.annoyed-to-idle {
 	background-image: url('assets/eyes/eyes-sleep.PNG');
 	background-size: 900px 180px;
-	animation: play-5 0.8s steps(4) reverse forwards;
+	animation: play-5-forwards 0.8s steps(4) reverse forwards;
 }
 
 .cat-eyes.yawn {
 	background-image: url('assets/eyes/eyes-yawn.PNG');
 	background-size: 1080px 180px;
-	animation: play-6 0.8s steps(5) forwards;
+	animation: play-6-forwards 0.8s steps(5) forwards;
 }
 
-.cat-tail.idle {
+/* Tail animations */
+.cat-tail.idle, .cat-tail.hungry, .cat-tail.bored {
 	background-image: url('assets/tails/tail-idle.PNG');
 	background-size: 1440px 180px;
-	animation: play-8 1s steps(7) infinite;
+	animation: play-8-infinite 1s steps(8) infinite;
 }
 
 .cat-tail.happy {
     background-image: url('assets/tails/tail-happy.PNG');
 	background-size: 1980px 180px;
-	animation: play-11 1s steps(11) infinite;
+	animation: play-11-infinite 1s steps(11) infinite;
 }
 
 .cat-tail.annoyed {
 	background-image: url('assets/tails/tail-annoyed.PNG');
 	background-size: 900px 180px;
-	animation: play-5 1s steps(4) infinite;
+	animation: play-5-infinite 1s steps(5) infinite;
 }
 
-.cat-tail.tall-to-flat {
+.cat-tail.idle-to-sleep, .cat-tail.idle-to-annoyed {
 	background-image: url('assets/tails/tail-to-flat.PNG');
 	background-size: 1620px 180px;
-	animation: play-9 1s steps(8) forwards;
+	animation: play-9-forwards 1s steps(8) forwards;
 }
 
-.cat-tail.flat-to-tall {
+.cat-tail.sleep-to-idle, .cat-tail.annoyed-to-idle {
 	background-image: url('assets/tails/tail-to-tall.PNG');
 	background-size: 1620px 180px;
-	animation: play-9 1s steps(8) forwards;
+	animation: play-9-forwards 1s steps(8) reverse forwards;
 }
 
-.bottom-nav{
-	width: 100%;
+/* Add two new ones for idle to annoyed and annoyed to idle which uses the same tail to flat etc */
 
+/* emotes to add on to cat */
+.cat-emote.none {
+	background-image: none;
+}
+
+.cat-emote.sleep {
+	background-image: url('assets/emote/emote-sleep.PNG');
+	background-size: 540px 180px;
+	animation: play-3-infinite 0.8s steps(3) infinite;
+}
+
+.cat-emote.angry {
+	background-image: url('assets/emote/emote-annoyed.PNG');
+	background-size: 360px 180px;
+	animation: play-2-infinite 0.8s steps(2) infinite;
+}
+
+.cat-emote.bored {
+	background-image: url('assets/emote/emote-bored.PNG');
+	background-size: 900px 180px;
+	animation: play-5-infinite 0.8s steps(5) infinite;
+}
+
+.cat-emote.confused {
+	background-image: url('assets/emote/emote-confused.PNG');
+	background-size: 2160px 180px;
+	animation: play-12-infinite 0.8s steps(12) infinite;
+}
+
+.cat-emote.happy {
+	background-image: url('assets/emote/emote-happy.PNG');
+	background-size: 900px 180px;
+	animation: play-5-infinite 0.8s steps(5) infinite;
+}
+
+.cat-emote.surprised {
+	background-image: url('assets/emote/emote-surprised.PNG');
+	background-size: 360px 180px;
+	animation: play-2-infinite 0.8s steps(2) infinite;
+}
+
+.bottom-nav {
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 5px 10px;
 }
 
-@keyframes play-3 {
-	from { background-position: 0 0; }
-	to { background-position: -360px 0; }
-}
-
-@keyframes play-5 {
+/* Forwards versions */
+@keyframes play-5-forwards {
 	from { background-position: 0 0; }
 	to { background-position: -720px 0; }
 }
 
-@keyframes play-6 {
+@keyframes play-6-forwards {
 	from { background-position: 0 0; }
 	to { background-position: -900px 0; }
 }
 
-@keyframes play-8 {
-	from { background-position: 0 0; }
-	to { background-position: -1260px 0; }
-}
-
-@keyframes play-9 {
+@keyframes play-9-forwards {
 	from { background-position: 0 0; }
 	to { background-position: -1440px 0; }
 }
 
-@keyframes play-11 {
+/* Infinite versions */
+@keyframes play-2-infinite {
+	from { background-position: 0 0; }
+	to { background-position: -360px 0; }
+}
+
+@keyframes play-3-infinite {
+	from { background-position: 0 0; }
+	to { background-position: -540px 0; }
+}
+
+@keyframes play-5-infinite {
+	from { background-position: 0 0; }
+	to { background-position: -900px 0; }
+}
+
+@keyframes play-8-infinite {
+	from { background-position: 0 0; }
+	to { background-position: -1440px 0; }
+}
+
+@keyframes play-11-infinite {
 	from { background-position: 0 0; }
 	to { background-position: -1980px 0; }
+}
+
+@keyframes play-12-infinite {
+	from { background-position: 0 0; }
+	to { background-position: -2160px 0; }
 }
