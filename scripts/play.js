@@ -1,3 +1,5 @@
+import Cat from "../Cat.js";
+
 const GAME_TIME = 120; //2 minutes
 const TIME_PER_WORD = 5;
 const scoreElement = document.getElementById("score");

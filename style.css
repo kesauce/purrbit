@@ -20,16 +20,18 @@ body {
 	flex-direction: column;
 }
 
-input:hover {
+input[type="text"]:hover {
 	cursor: text;
 }
 
-button {
+input[type="submit"], button {
 	padding: 3px;
 }
-button:hover {
+
+input[type="submit"], button:hover {
 	cursor: pointer;
 }
+
 .top-nav {
 	display: flex;
 	flex-direction: row;
