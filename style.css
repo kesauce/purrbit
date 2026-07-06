@@ -18,6 +18,7 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
+	background-color: white;
 }
 
 input[type="text"]:hover {
@@ -285,4 +286,10 @@ input[type="submit"], button:hover {
 @keyframes play-12-infinite {
 	from { background-position: 0 0; }
 	to { background-position: -2160px 0; }
+}
+
+@media (prefers-color-scheme: dark) {
+	html {
+		filter: invert(1);
+	}
 }
