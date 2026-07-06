@@ -12,5 +12,8 @@
 	  "matches": [ "<all_urls>" ]
 	}
 	],
-  "permissions": ["storage"]
+  "permissions": ["storage", "sidePanel", "tabs"],
+  "background": {
+  "service_worker": "../scripts/background.js"
+}
 }

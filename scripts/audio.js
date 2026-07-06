@@ -21,6 +21,9 @@ async function startMusic() {
 	else if (window.location.href.includes("groom.html")){
 		bgmPath ="../assets/bgm/bgm-strings.wav";
 	}
+	else if (window.location.href.includes("settings.html")){
+		bgmPath = "../assets/bgm/bgm-wind.wav"
+	}
 
 	const url = chrome.runtime.getURL(bgmPath);
 	const buffer = await loadAudio(url);
