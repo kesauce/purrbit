@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>purrbit</title>
+		<link rel="stylesheet" href="../style.css" />
+		<script src="../scripts/audio.js" defer></script>
+		<script src="../scripts/settings.js" type="module" defer></script>
+		<style>
+			h1 {
+				font-size: small;
+				padding: 5px 0px;
+			}
+
+			p {
+				font-size: xx-small;
+				padding: 5px 0px;
+			}
+
+			body {
+				align-items: flex-start;
+				justify-content: flex-start;
+				align-content: center;
+			}
+
+			.header {
+				padding: 5px 10px;
+				display: flex;
+				width: 100%;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.setting-group {
+				padding: 5px 10px;
+				display: flex;
+				flex-direction: column;
+				gap: 1px;
+			}
+
+			input[type="radio"] {
+				appearance: none;
+				width: 12px;
+				height: 12px;
+				border: 1.5px solid black;
+				cursor: pointer;
+			}
+
+			input[type="radio"]:checked {
+				background: black;
+			}
+
+			input[type="text"]{
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<h1>Settings</h1>
+			<div class="icon-container">
+				<img id="back-button" src="../assets/icons/back.png" />
+			</div>
+		</div>
+		<div class="setting-group">
+			<h1>Display:</h1>
+			<span>
+				<input type="radio" id="popup" name="display" value="popup" />
+				<label for="popup">Popup</label>
+			</span>
+			<span>
+				<input
+					type="radio"
+					id="side-panel"
+					name="display"
+					value="side-panel"
+				/>
+				<label for="side-panel">Side Panel</label>
+			</span>
+			<p>Restart to apply changes.</p>
+		</div>
+		<div class="setting-group">
+				<h1>Cat Name:</h1>
+				<input type="text" id="cat-name">
+				<button id="name-change">Change</button>
+		</div>
+	</body>
+</html>

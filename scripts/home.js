@@ -23,7 +23,11 @@ async function initialiseGame() {
 	// Rebuilt the Cat object
 	catInstance = Object.assign(new Cat(), cat);
 
-	console.log("Loaded cat:", catInstance.getHunger(), catInstance.getEnergy());
+	console.log(
+		"Loaded cat:",
+		catInstance.getHunger(),
+		catInstance.getEnergy(),
+	);
 
 	document.getElementById("cat-name").textContent = catInstance.getName();
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
@@ -35,6 +39,9 @@ async function initialiseGame() {
 		</div>
 		<div class="icon-container">
 			<img id="groom-button" src="../assets/icons/brush.png" />
+		</div>
+		<div class="icon-container">
+			<img id="settings-button" src="../assets/icons/settings.png" />
 		</div>
 	`;
 
@@ -52,16 +59,23 @@ async function initialiseGame() {
 			<img id="back-button" src="../assets/icons/back.png" />
 		</div>
 	`;
-	
+
 	// Setup functions for initialising each button
 	function bindMainNav() {
 		document.getElementById("top-nav").innerHTML = mainNav;
 		document.getElementById("feed-button").addEventListener("click", () => {
 			bindFeedNav();
 		});
-		document.getElementById("groom-button").addEventListener("click", () => {
-			window.location.href = "groom.html";
-		});
+		document
+			.getElementById("groom-button")
+			.addEventListener("click", () => {
+				window.location.href = "groom.html";
+			});
+		document
+			.getElementById("settings-button")
+			.addEventListener("click", () => {
+				window.location.href = "settings.html";
+			});
 	}
 
 	function bindFeedNav() {
@@ -71,16 +85,23 @@ async function initialiseGame() {
 		});
 		document.getElementById("fish-button").addEventListener("click", () => {
 			catInstance.feed(60);
+			setMood("feed");
 			bindMainNav();
 		});
-		document.getElementById("canned-button").addEventListener("click", () => {
-			catInstance.feed(40);
-			bindMainNav();
-		});
-		document.getElementById("treat-button").addEventListener("click", () => {
-			catInstance.feed(20);
-			bindMainNav();
-		});
+		document
+			.getElementById("canned-button")
+			.addEventListener("click", () => {
+				catInstance.feed(40);
+				setMood("feed");
+				bindMainNav();
+			});
+		document
+			.getElementById("treat-button")
+			.addEventListener("click", () => {
+				catInstance.feed(20);
+				setMood("feed");
+				bindMainNav();
+			});
 	}
 
 	bindMainNav();
@@ -93,8 +114,16 @@ async function initialiseGame() {
 function setMood(action = null) {
 	//DEBUGGIGN
 	console.log("setMood called with action:", action);
-  	console.log("Stats - Energy:", catInstance.getEnergy(), "Hunger:", catInstance.getHunger(), "Happiness:", catInstance.getHappiness(), "Status:", catInstance.getStatus());
-  
+	console.log(
+		"Stats - Energy:",
+		catInstance.getEnergy(),
+		"Hunger:",
+		catInstance.getHunger(),
+		"Happiness:",
+		catInstance.getHappiness(),
+		"Status:",
+		catInstance.getStatus(),
+	);
 
 	let mood;
 
@@ -102,13 +131,19 @@ function setMood(action = null) {
 	//Rest of mood based on stats
 	if (catInstance.getEnergy() <= 10) {
 		mood = "tired-sleep";
-	} else if  (action === "pat") {
+	} else if (action === "pat") {
 		mood = catInstance.getHunger() <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (action === "play") {
-		mood = catInstance.getHunger() <= 20 ? "idle-to-annoyed" : "idle-to-excited";
+		mood =
+			catInstance.getHunger() <= 20
+				? "idle-to-annoyed"
+				: "idle-to-excited";
 	} else if (action === "groom") {
 		mood = catInstance.getHunger() <= 20 ? "idle-to-annoyed" : "happy";
-	} else if (catInstance.getHunger() <= 20 && catInstance.getHappiness() <= 20){
+	} else if (
+		catInstance.getHunger() <= 20 &&
+		catInstance.getHappiness() <= 20
+	) {
 		mood = "idle-to-angry";
 	} else if (catInstance.getHunger() <= 20) {
 		mood = "hungry";
@@ -128,41 +163,68 @@ function setMood(action = null) {
 		console.log("Entering tired sleep");
 		catInstance.setStatus("Asleep");
 		setEmote("sleep");
-		playMoodSequence("yawn", "idle-to-sleep", "sleep-to-idle", () => catInstance.getEnergy() >= 80);
+		playMoodSequence(
+			"yawn",
+			"idle-to-sleep",
+			"sleep-to-idle",
+			() => catInstance.getEnergy() >= 80,
+		);
 		catInstance.rest();
 	} else if (mood === "inactive-sleep") {
 		console.log("Entering inactive sleep");
 		catInstance.setStatus("Resting");
 		setEmote("sleep");
 		//No sequence needed as it just handles going to sleep
-		document.querySelector(".cat-eyes").className = `cat-eyes idle-to-sleep`;
-		document.querySelector(".cat-tail").className = `cat-tail idle-to-sleep`;
+		document.querySelector(".cat-eyes").className =
+			`cat-eyes idle-to-sleep`;
+		document.querySelector(".cat-tail").className =
+			`cat-tail idle-to-sleep`;
 		catInstance.rest();
 	} else if (mood === "idle-to-angry") {
 		console.log("Entering angry sequence");
 		catInstance.setStatus("Angry");
 		setEmote("angry");
-		playMoodSequence("idle-to-annoyed", "annoyed", "annoyed-to-idle", () => catInstance.getHunger() >= 60 && catInstance.getHappiness() >= 60);
+		playMoodSequence(
+			"idle-to-annoyed",
+			"annoyed",
+			"annoyed-to-idle",
+			() =>
+				catInstance.getHunger() >= 60 &&
+				catInstance.getHappiness() >= 60,
+		);
 	} else if (mood === "idle-to-excited") {
 		console.log("Entering excited sequence");
 		catInstance.setStatus("Excited");
 		setEmote("surprised");
-		playMoodSequence("idle-to-excited", null, "excited-to-idle", () => Date.now() > excitedUntil);
+		playMoodSequence(
+			"idle-to-excited",
+			null,
+			"excited-to-idle",
+			() => Date.now() > excitedUntil,
+		);
 	} else if (mood === "idle-to-annoyed") {
 		console.log("Entering annoyed sequence");
 		catInstance.setStatus("Annoyed");
-		playMoodSequence("idle-to-annoyed", "annoyed", "annoyed-to-idle", () => !isPetting);
+		playMoodSequence(
+			"idle-to-annoyed",
+			"annoyed",
+			"annoyed-to-idle",
+			() => !isPetting,
+		);
 	} else {
 		console.log("Entering simple mood:", mood);
 		//Simple moods that map to a status and emote
 		const emoteMap = {
-			hungry: { status: "Hungry", emote: "confused"},
-			bored: { status: "Bored", emote: "bored"},
-			happy: { status: "Happy", emote: "happy"},
-			idle: { status: "Idle", emote: "none"},
+			hungry: { status: "Hungry", emote: "confused" },
+			bored: { status: "Bored", emote: "bored" },
+			happy: { status: "Happy", emote: "happy" },
+			idle: { status: "Idle", emote: "none" },
 		};
 
-		const { status, emote } = emoteMap[mood] ?? { status: mood, emote: "none" };
+		const { status, emote } = emoteMap[mood] ?? {
+			status: mood,
+			emote: "none",
+		};
 		catInstance.setStatus(status);
 		setEmote(emote);
 		document.querySelector(".cat-eyes").className = `cat-eyes ${mood}`;
@@ -176,9 +238,21 @@ function setEmote(emote) {
 }
 
 //Helper function for moods that have a sequence
-function playMoodSequence(transition, hold = null, returnTransition, exitCondition = () => true) {
-	console.log("playMoodSequence:", transition, "->", hold, "->", returnTransition);
-  
+function playMoodSequence(
+	transition,
+	hold = null,
+	returnTransition,
+	exitCondition = () => true,
+) {
+	console.log(
+		"playMoodSequence:",
+		transition,
+		"->",
+		hold,
+		"->",
+		returnTransition,
+	);
+
 	document.querySelector(".cat-eyes").className = `cat-eyes ${transition}`;
 	document.querySelector(".cat-tail").className = `cat-tail ${transition}`;
 
@@ -191,8 +265,10 @@ function playMoodSequence(transition, hold = null, returnTransition, exitConditi
 		const holdInterval = setInterval(() => {
 			if (exitCondition()) {
 				clearInterval(holdInterval);
-				document.querySelector(".cat-eyes").className = `cat-eyes ${returnTransition}`;
-				document.querySelector(".cat-tail").className = `cat-tail ${returnTransition}`;
+				document.querySelector(".cat-eyes").className =
+					`cat-eyes ${returnTransition}`;
+				document.querySelector(".cat-tail").className =
+					`cat-tail ${returnTransition}`;
 				setTimeout(() => setMood(), 800);
 			}
 		}, 500);
@@ -207,7 +283,11 @@ let petHappinessInterval;
 //Checks if cursor entered the petting area
 catHead.addEventListener("mouseenter", () => {
 	console.log("Mouse entered cat head, status:", catInstance.getStatus());
-	if(catInstance.getStatus() === "Asleep" || catInstance.getStatus() === "Resting") return;
+	if (
+		catInstance.getStatus() === "Asleep" ||
+		catInstance.getStatus() === "Resting"
+	)
+		return;
 	petTimer = setTimeout(() => {
 		isPetting = true;
 		setMood("pat");
@@ -223,7 +303,11 @@ catHead.addEventListener("mouseenter", () => {
 //Checks if cursor leaves the area
 catHead.addEventListener("mouseleave", () => {
 	console.log("Mouse left cat head");
-	if(catInstance.getStatus() === "Asleep" || catInstance.getStatus() === "Resting") return;
+	if (
+		catInstance.getStatus() === "Asleep" ||
+		catInstance.getStatus() === "Resting"
+	)
+		return;
 	clearTimeout(petTimer);
 	clearInterval(petHappinessInterval);
 	isPetting = false;
@@ -241,8 +325,10 @@ function resetInactivity() {
 	clearTimeout(inactivityTimer);
 
 	if (catInstance.getStatus() === "Resting") {
-		document.querySelector(".cat-eyes").className = `cat-eyes sleep-to-idle`;
-		document.querySelector(".cat-tail").className = `cat-tail sleep-to-idle`;
+		document.querySelector(".cat-eyes").className =
+			`cat-eyes sleep-to-idle`;
+		document.querySelector(".cat-tail").className =
+			`cat-tail sleep-to-idle`;
 		setEmote("none");
 		setTimeout(() => setMood(), 800);
 	}
@@ -256,7 +342,11 @@ document.addEventListener("click", resetInactivity);
 // ────── Stat Decay (5mins) ──────
 //Update the cat's stats every 5 minutes
 setInterval(() => {
-	if (catInstance.getStatus() !== "Asleep" && catInstance.getStatus() !== "Resting" && !isPetting) {
+	if (
+		catInstance.getStatus() !== "Asleep" &&
+		catInstance.getStatus() !== "Resting" &&
+		!isPetting
+	) {
 		catInstance.updateStats();
 		//Set mood depending on stats
 		setMood();
