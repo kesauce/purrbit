@@ -71,14 +71,17 @@ async function initialiseGame() {
 		});
 		document.getElementById("fish-button").addEventListener("click", () => {
 			catInstance.feed(60);
+			setMood("feed");
 			bindMainNav();
 		});
 		document.getElementById("canned-button").addEventListener("click", () => {
 			catInstance.feed(40);
+			setMood("feed");
 			bindMainNav();
 		});
 		document.getElementById("treat-button").addEventListener("click", () => {
 			catInstance.feed(20);
+			setMood("feed");
 			bindMainNav();
 		});
 	}
