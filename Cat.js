@@ -25,8 +25,8 @@ export default class Cat {
      * Play with the cat and increase happiness
      * @param {number} playValue 
      */
-    play(playValue){
-        this.happiness += playValue;
+    play(){
+        this.happiness = Math.min(100, this.happiness + 10);
     }
 
     /**

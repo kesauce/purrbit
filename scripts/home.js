@@ -2,7 +2,6 @@ import Cat from "../Cat.js";
 
 let catInstance;
 let isPetting = false;
-let excitedUntil = null;
 let inactivityTimer;
 
 // ────── Initialise Cat ──────
@@ -22,12 +21,6 @@ async function initialiseGame() {
 
 	// Rebuilt the Cat object
 	catInstance = Object.assign(new Cat(), cat);
-
-	console.log(
-		"Loaded cat:",
-		catInstance.getHunger(),
-		catInstance.getEnergy(),
-	);
 
 	document.getElementById("cat-name").textContent = catInstance.getName();
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
@@ -64,18 +57,22 @@ async function initialiseGame() {
 	function bindMainNav() {
 		document.getElementById("top-nav").innerHTML = mainNav;
 		document.getElementById("feed-button").addEventListener("click", () => {
+			saveState();
 			bindFeedNav();
 		});
 		document
 			.getElementById("groom-button")
 			.addEventListener("click", () => {
+				saveState();
 				window.location.href = "groom.html";
 			});
 		document
 			.getElementById("settings-button")
 			.addEventListener("click", () => {
+				saveState();
 				window.location.href = "settings.html";
 			});
+		//play button
 	}
 
 	function bindFeedNav() {
@@ -157,10 +154,7 @@ function setMood(action = null) {
 		mood = "idle";
 	}
 
-	//DEBUGGING
-	console.log("Mood determined: ", mood);
 	if (mood === "tired-sleep") {
-		console.log("Entering tired sleep");
 		catInstance.setStatus("Asleep");
 		setEmote("sleep");
 		playMoodSequence(
@@ -212,7 +206,6 @@ function setMood(action = null) {
 			() => !isPetting,
 		);
 	} else {
-		console.log("Entering simple mood:", mood);
 		//Simple moods that map to a status and emote
 		const emoteMap = {
 			hungry: { status: "Hungry", emote: "confused" },

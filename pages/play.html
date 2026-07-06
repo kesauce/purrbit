@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>purrbit</title>
+		<link rel="stylesheet" href="../style.css" />
+		<script src="../scripts/audio.js" defer></script>
+		<script src="../scripts/play.js" type="module" defer></script>
+		<style>
+			h1 {
+				font-size: small;
+				padding: 5px 10px;
+			}
+			p {
+				font-size: xx-small;
+				padding: 5px 10px;
+			}
+
+			body {
+				justify-content: center;
+				align-items: center;
+			}
+
+			.bottom-nav{
+				justify-content: space-between;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Happiness: <span id="score"></span></h1>
+		<p id="subtitle">Get ready!</p>
+        <div id="timer"></div>
+        <div id="typing-game">
+            <p id="word-display"></p>
+            <input type="text" id="word-input" placeholder="type here..." />
+        </div>
+
+		<div id="math-game">
+            <p id="equation-display"></p>
+            <input type="text" id="math-input" placeholder="answer..." />
+        </div>
+
+        <div id="game-timer"></div>
+		<div class="bottom-nav">
+			<p id="feedback"></p>
+			<div class="icon-container">
+				<img src="../assets/icons/back.png" id="back-button"/>
+			</div>
+		</div>
+	</body>
+</html>

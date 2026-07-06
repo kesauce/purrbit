@@ -129,7 +129,7 @@ function endGame() {
 	if (activeHole !== null) hideCat(activeHole);
 
 	// Save the cat state
-	chrome.storage.local.set({ cat: catInstance });
+	chrome.storage.local.set({ cat: {...catInstance } });
 }
 
 startGame();
