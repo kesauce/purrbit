@@ -187,37 +187,37 @@ body {
 .cat-emote.sleep {
 	background-image: url('assets/emote/emote-sleep.PNG');
 	background-size: 540px 180px;
-	animation: play-3-infinite 0.8s steps(3) infinite;
+	animation: play-3-infinite 1.2s steps(3) infinite;
 }
 
 .cat-emote.angry {
 	background-image: url('assets/emote/emote-annoyed.PNG');
 	background-size: 360px 180px;
-	animation: play-2-infinite 0.8s steps(2) infinite;
+	animation: play-2-infinite 1.2s steps(2) infinite;
 }
 
 .cat-emote.bored {
 	background-image: url('assets/emote/emote-bored.PNG');
 	background-size: 900px 180px;
-	animation: play-5-infinite 0.8s steps(5) infinite;
+	animation: play-5-infinite 1.2s steps(5) infinite;
 }
 
 .cat-emote.confused {
 	background-image: url('assets/emote/emote-confused.PNG');
 	background-size: 2160px 180px;
-	animation: play-12-infinite 0.8s steps(12) infinite;
+	animation: play-12-infinite 1.2s steps(12) infinite;
 }
 
 .cat-emote.happy {
 	background-image: url('assets/emote/emote-happy.PNG');
 	background-size: 900px 180px;
-	animation: play-5-infinite 0.8s steps(5) infinite;
+	animation: play-5-infinite 1.2s steps(5) infinite;
 }
 
 .cat-emote.surprised {
 	background-image: url('assets/emote/emote-surprised.PNG');
 	background-size: 360px 180px;
-	animation: play-2-infinite 0.8s steps(2) infinite;
+	animation: play-2-infinite 1.2s steps(2) infinite;
 }
 
 .bottom-nav {

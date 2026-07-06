@@ -10,6 +10,9 @@ async function initialiseGame() {
 	// Check if there's a saved state in the Chrome storage
 	const { cat } = await chrome.storage.local.get("cat");
 
+	//DEbugging
+	chrome.storage.local.get("cat", (data) => console.log(data));
+
 	// Create a new cat if it doesn't exit
 	if (!cat) {
 		// Navigate to the create page
@@ -19,6 +22,9 @@ async function initialiseGame() {
 
 	// Rebuilt the Cat object
 	catInstance = Object.assign(new Cat(), cat);
+
+	console.log("Loaded cat:", catInstance.getHunger(), catInstance.getEnergy());
+
 	document.getElementById("cat-name").textContent = catInstance.getName();
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
 
@@ -162,8 +168,7 @@ function setMood(action = null) {
 		document.querySelector(".cat-eyes").className = `cat-eyes ${mood}`;
 		document.querySelector(".cat-tail").className = `cat-tail ${mood}`;
 	}
-
-	document.getElementById("cat-status").textContent = catInstance.getStatus();
+	updateUI();
 }
 
 function setEmote(emote) {
@@ -210,6 +215,7 @@ catHead.addEventListener("mouseenter", () => {
 		//Increase happiness while being petted
 		petHappinessInterval = setInterval(() => {
 			catInstance.pet();
+			saveState();
 		}, 2000);
 	}, 2000);
 });
@@ -222,7 +228,13 @@ catHead.addEventListener("mouseleave", () => {
 	clearInterval(petHappinessInterval);
 	isPetting = false;
 	setMood();
+	saveState();
 });
+
+// ────── Update UI ──────
+function updateUI() {
+	document.getElementById("cat-status").textContent = catInstance.getStatus();
+}
 
 // ────── Inactivity ──────
 function resetInactivity() {
@@ -234,7 +246,6 @@ function resetInactivity() {
 		setEmote("none");
 		setTimeout(() => setMood(), 800);
 	}
-
 	inactivityTimer = setTimeout(() => setMood("inactive"), 1000 * 60 * 3);
 }
 
@@ -249,13 +260,15 @@ setInterval(() => {
 		catInstance.updateStats();
 		//Set mood depending on stats
 		setMood();
+		saveState();
 	}
-}, 1000 * 60 * 5);
+}, 6000);
 // 1000 * 60 * 5
-//Saves the state when popup is closed
-window.addEventListener("unload", () => {
-	chrome.storage.local.set({ cat: catInstance });
-});
+
+// ────── Save State ────── Use in every event
+function saveState() {
+	chrome.storage.local.set({ cat: { ...catInstance } });
+}
 
 // ────── Start Game ──────
 initialiseGame();
