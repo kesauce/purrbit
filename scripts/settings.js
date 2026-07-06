@@ -4,12 +4,15 @@ import Cat from "../Cat.js";
 async function loadSettings() {
 	const { display } = await chrome.storage.local.get("display");
 	const { cat } = await chrome.storage.local.get("cat");
+	const { volume } = await chrome.storage.local.get("volume");
 
 	const value = display || "popup";
 	document.querySelector(`input[value="${value}"]`).checked = true;
 
 	const catInstance = Object.assign(new Cat(), cat);
 	document.getElementById("cat-name").value = catInstance.getName() ?? "";
+
+	document.getElementById("volume").value = volume ?? 1;
 }
 
 loadSettings();
