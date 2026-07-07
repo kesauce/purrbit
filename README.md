@@ -5,6 +5,7 @@
 Purrbit is a game built as a Chrome extension, inspired by the original Tamagotchi games where users take care of a pixel cat instead. Keep hunger, happiness, energy, and cleanliness up through feeding, playing, grooming, and petting.
 
 ## Structure
+```
 purrbit/
 ├── Cat.js
 ├── assets/
@@ -30,6 +31,7 @@ purrbit/
 │   └── settings.js
 ├── style.css
 └── manifest.json
+```
 
 ## Features
 Main features for our game includes:
