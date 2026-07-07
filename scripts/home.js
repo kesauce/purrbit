@@ -81,6 +81,13 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("fish-button").addEventListener("click", () => {
+			const catName = document.getElementById("cat-name");
+			const original = catName.textContent;
+			catName.textContent = "+60";
+			setTimeout(() => {
+				catName.textContent = original;
+			}, 2000);
+
 			catInstance.feed(60);
 			excitedUntil = Date.now() + 5000;
 			setMood("feed");
@@ -88,6 +95,13 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("canned-button").addEventListener("click", () => {
+			const catName = document.getElementById("cat-name");
+			const original = catName.textContent;
+			catName.textContent = "+40";
+			setTimeout(() => {
+				catName.textContent = original;
+			}, 2000);
+
 			catInstance.feed(40);
 			excitedUntil = Date.now() + 5000;
 			setMood("feed");
@@ -95,6 +109,13 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("treat-button").addEventListener("click", () => {
+			const catName = document.getElementById("cat-name");
+			const original = catName.textContent;
+			catName.textContent = "+20";
+			setTimeout(() => {
+				catName.textContent = original;
+			}, 2000);
+
 			catInstance.feed(20);
 			excitedUntil = Date.now() + 5000;
 			setMood("feed");
