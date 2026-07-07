@@ -15,10 +15,26 @@ body {
 	width: 250px;
 	height: 250px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	background-color: white;
+}
+
+h1 {
+	font-size: small;
+	padding: 5px 10px;
+}
+
+p {
+	font-size: x-small;
+	padding: 5px 10px;
+}
+
+input[type="text"] {
+	padding: 2px;
+	height: 25px;
+	width: 100%;
 }
 
 input[type="text"]:hover {
@@ -34,17 +50,21 @@ input[type="submit"], button:hover {
 }
 
 .top-nav {
+	margin-top: 10px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
 }
 
 .bottom-nav {
+	position: fixed;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 5px 10px;
+	bottom: 0;
+	left: 0;
 }
 
 .icon-container {

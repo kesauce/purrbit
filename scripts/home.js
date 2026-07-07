@@ -6,6 +6,7 @@ let inactivityTimer;
 
 // ────── Initialise Cat ──────
 async function initialiseGame() {
+	// window.location.href = "play.html";
 	// Check if there's a saved state in the Chrome storage
 	const { cat } = await chrome.storage.local.get("cat");
 

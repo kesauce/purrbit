@@ -8,30 +8,39 @@
 		<script src="../scripts/audio.js" defer></script>
 		<script src="../scripts/play.js" type="module" defer></script>
 		<style>
-			h1 {
-				font-size: small;
-				padding: 5px 10px;
+			body {
+				text-align: center;
 			}
-			p {
+
+			.header {
+				padding: 20px 10px;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+			}
+
+			.main-content {
+				padding: 5px 10px;
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+			}
+
+			#timer, #game-timer {
 				font-size: xx-small;
 				padding: 5px 10px;
-			}
-
-			body {
-				justify-content: center;
-				align-items: center;
-			}
-
-			.bottom-nav{
-				justify-content: space-between;
-				align-items: center;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>Happiness: <span id="score"></span></h1>
-		<p id="subtitle">Get ready!</p>
-        <div id="timer"></div>
+		<div class="header">
+			<div id="game-timer">2:00</div>
+			<h1>Happiness: <span id="score"></span></h1>
+			<p id="subtitle">Get ready!</p>
+		</div>
+		<div class="main-content">
+        <div id="timer">Time: 5</div>
         <div id="typing-game">
             <p id="word-display"></p>
             <input type="text" id="word-input" placeholder="type here..." />
@@ -41,8 +50,7 @@
             <p id="equation-display"></p>
             <input type="text" id="math-input" placeholder="answer..." />
         </div>
-
-        <div id="game-timer"></div>
+		</div>
 		<div class="bottom-nav">
 			<p id="feedback"></p>
 			<div class="icon-container">

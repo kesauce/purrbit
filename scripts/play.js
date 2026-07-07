@@ -25,11 +25,11 @@ let currentAnswer = 0;
 function startTimer(onExpire) {
     clearInterval(timer);
     timeLeft = TIME_PER_WORD;
-    timerElement.textContent = timeLeft;
+    timerElement.textContent = `Time: ${timeLeft}`;
 
     timer = setInterval(() => {
         timeLeft--;
-        timerElement.textContent = timeLeft;
+        timerElement.textContent = `Time: ${timeLeft}`;
         if (timeLeft <= 0) {
             clearInterval(timer);
             onExpire();
