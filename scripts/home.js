@@ -83,14 +83,20 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("fish-button").addEventListener("click", () => {
+			const catName = document.getElementById("cat-name");
+			const original = catName.textContent;
+
 			if (catInstance.getHunger() >= 90) {
+				catName.textContent = "They're full!";
+				setTimeout(() => {
+					catName.textContent = original;
+				}, 2000);
+
 				setMood("full");
 				bindMainNav();
 				return;
 			}
 
-			const catName = document.getElementById("cat-name");
-			const original = catName.textContent;
 			catName.textContent = "+60";
 			setTimeout(() => {
 				catName.textContent = original;
@@ -103,14 +109,20 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("canned-button").addEventListener("click", () => {
+			const catName = document.getElementById("cat-name");
+			const original = catName.textContent;
+
 			if (catInstance.getHunger() >= 90) {
+				catName.textContent = "They're full!";
+				setTimeout(() => {
+					catName.textContent = original;
+				}, 2000);
+
 				setMood("full");
 				bindMainNav();
 				return;
 			}
-			
-			const catName = document.getElementById("cat-name");
-			const original = catName.textContent;
+
 			catName.textContent = "+40";
 			setTimeout(() => {
 				catName.textContent = original;
@@ -123,14 +135,20 @@ async function initialiseGame() {
 			bindMainNav();
 		});
 		document.getElementById("treat-button").addEventListener("click", () => {
+			const catName = document.getElementById("cat-name");
+			const original = catName.textContent;
+
 			if (catInstance.getHunger() >= 90) {
+				catName.textContent = "They're full!";
+				setTimeout(() => {
+					catName.textContent = original;
+				}, 2000);
+
 				setMood("full");
 				bindMainNav();
 				return;
 			}
-			
-			const catName = document.getElementById("cat-name");
-			const original = catName.textContent;
+
 			catName.textContent = "+20";
 			setTimeout(() => {
 				catName.textContent = original;
@@ -177,10 +195,7 @@ function setMood(action = null) {
 		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (action === "feed") {
 		mood = hunger <= 20 ? "idle-to-excited" : "eating";
-	} else if (
-		catInstance.hunger <= 20 &&
-		catInstance.happiness <= 20
-	) {
+	} else if (catInstance.hunger <= 20 && catInstance.happiness <= 20) {
 		mood = "idle-to-angry";
 	} else if (hunger <= 20) {
 		mood = "hungry";
@@ -225,7 +240,8 @@ function setMood(action = null) {
 		);
 	} else if (mood === "idle-to-annoyed") {
 		catInstance.setStatus("Annoyed");
-		const exitCondition = action === "full" ? () => catInstance.getHunger() < 90 : () => !isPetting;
+		const exitCondition =
+			action === "full" ? () => catInstance.getHunger() < 90 : () => !isPetting;
 		playMoodSequence("idle-to-annoyed", "annoyed", "annoyed-to-idle", exitCondition);
 	} else {
 		//Simple moods that map to a status and emote
