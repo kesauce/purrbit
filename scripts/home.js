@@ -156,13 +156,17 @@ function setMood(action = null) {
 	} else if (action === "groom") {
 		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (catInstance.hunger <= 20 && catInstance.happiness <= 20) {
+	} else if (
+		catInstance.hunger <= 20 &&
+		catInstance.happiness <= 20
+	) {
 		mood = "idle-to-angry";
 	} else if (hunger <= 20) {
 		mood = "hungry";
 	} else if (happiness <= 20) {
 		mood = "bored";
 	} else if (action === "feed") {
-		mood = "happy";
+		mood = "idle-to-excited";
 	} else if (action === "inactive") {
 		mood = "inactive-sleep";
 	} else {

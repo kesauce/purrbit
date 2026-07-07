@@ -106,7 +106,7 @@ async function startGame() {
 	const { cat } = await chrome.storage.local.get("cat");
 	catInstance = Object.assign(new Cat(), cat);
 
-	score = 0;
+	score = catInstance.getCleanliness();
 	scoreElement.textContent = score;
 
 	// If cat already max cleanliness, end game
