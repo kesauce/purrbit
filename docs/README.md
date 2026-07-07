@@ -53,10 +53,14 @@ We pivoted to a Chrome extension instead, which gave us a fixed viewport, native
 
 As shown below (peep the first concept of our cat), we had a lot of ideas for the mechanisms, ranging from demanding attention to consequences for spamming minigames.
 
+![Screenshot of our initial plan](planning.jpg)
+
 But as we progressed through our code, we realized it might be better to stay simple, especially as it’s meant to be an “easy” caretaking simulation. We scoped down to a core loop of feeding, playing, grooming, and petting — each tied to a stat that decays naturally over time and recovers through player interaction.
 
 ### Design Process
 We wanted the cat to be simple to draw, but also feel alive — so every part of the cat (body, eyes, tail, extra emotes) was hand-drawn on a pixel app as separate sprite sheets, allowing us to mix and match expressions independently rather than redrawing the whole cat for every mood. This made it easy to scale if we wanted to add more moods (which we ended up doing). 
+
+![Old design of the cat](old-cat-design.PNG) ![New design of the cat](new-cat-design.PNG)
 
 We kept the UI minimal and pixel-art styled to match the cat, paired with the Dogica pixel font throughout. We had originally planned for just the outline of the cat the cat’s feeties could show. However, it made it difficult to animate the tail, as we had to make sure that the outline of the tail was consistent while making the tail animation fluid. Inconsistencies in the line thickness would be noticeable, so we decided to fully color the cat. This made it significantly easier to animate and line inconsistencies weren’t seen.
 
