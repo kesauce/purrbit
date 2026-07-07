@@ -8,18 +8,17 @@
 		<script src="../scripts/audio.js" defer></script>
 		<script src="../scripts/groom.js" type="module" defer></script>
 		<style>
-			h1 {
-				font-size: small;
-				padding: 5px 10px;
-			}
 			p {
 				font-size: xx-small;
-				padding: 5px 10px;
 			}
 
-			body {
-				justify-content: center;
-				align-items: center;
+			.header {
+				padding: 8px 10px;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				text-align: center;
 			}
 
 			#grid {
@@ -27,6 +26,7 @@
 				grid-template-columns: repeat(3, 40px);
 				gap: 8px;
 			}
+
 			.hole {
 				aspect-ratio: 1;
 				background: #ddd;
@@ -36,19 +36,18 @@
 				align-items: center;
 				justify-content: center;
 			}
+
 			.hole.active {
 				border: solid 1px black;
-			}
-
-			.bottom-nav{
-				justify-content: space-between;
-				align-items: center;
 			}
 		</style>
 	</head>
 	<body>
+		<div class="header">
 		<h1>Cleanliness: <span id="score"></span></h1>
 		<p id="subtitle">Catch your cat to clean them!</p>
+		</div>
+
 		<div id="grid"></div>
 		<div class="bottom-nav">
 			<p id="feedback"></p>

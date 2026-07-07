@@ -221,8 +221,6 @@ input[type="submit"], button:hover {
 	animation: play-9-forwards 1s steps(8) reverse forwards;
 }
 
-/* Add two new ones for idle to annoyed and annoyed to idle which uses the same tail to flat etc */
-
 /* emotes to add on to cat */
 .cat-emote.none {
 	background-image: none;
@@ -235,7 +233,7 @@ input[type="submit"], button:hover {
 }
 
 .cat-emote.angry {
-	background-image: url('assets/emote/emote-annoyed.PNG');
+	background-image: url('assets/emote/emote-angry.PNG');
 	background-size: 360px 180px;
 	animation: play-2-infinite 1.2s steps(2) infinite;
 }

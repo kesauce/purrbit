@@ -53,7 +53,7 @@ function showCat() {
 
 	// Add an image of the cat on the active hole
 	const img = document.createElement("img");
-	img.src = "../assets/body-test4.png";
+	img.src = "../assets/body/full-body.PNG";
 	img.style.cssText = "width:80%;height:80%;object-fit:contain;";
 	grid.children[activeHole].appendChild(img);
 

@@ -3,6 +3,7 @@ import Cat from "../Cat.js";
 let catInstance;
 let isPetting = false;
 let inactivityTimer;
+let excitedUntil;
 
 // ────── Initialise Cat ──────
 async function initialiseGame() {
@@ -79,21 +80,27 @@ async function initialiseGame() {
 		});
 		document.getElementById("fish-button").addEventListener("click", () => {
 			catInstance.feed(60);
+			excitedUntil = Date.now() + 5000;
 			setMood("feed");
+			saveState();
 			bindMainNav();
 		});
 		document
 			.getElementById("canned-button")
 			.addEventListener("click", () => {
 				catInstance.feed(40);
+				excitedUntil = Date.now() + 5000;
 				setMood("feed");
+				saveState();
 				bindMainNav();
 			});
 		document
 			.getElementById("treat-button")
 			.addEventListener("click", () => {
 				catInstance.feed(20);
+				excitedUntil = Date.now() + 5000;
 				setMood("feed");
+				saveState();
 				bindMainNav();
 			});
 	}
@@ -114,26 +121,32 @@ async function initialiseGame() {
  */
 function setMood(action = null) {
 	let mood;
+	const hunger = catInstance.getHunger();
+	const happiness = catInstance.getHappiness();
+	const energy = catInstance.getEnergy();
+	const cleanliness = catInstance.getCleanliness();
 
-	if (catInstance.getEnergy() <= 10) {
+	if (energy <= 10) {
 		mood = "tired-sleep";
+	} else if (hunger >= 80 && happiness >= 80 && energy >= 80 && cleanliness >= 80) {
+		mood = "happy";
 	} else if (action === "pet") {
-		mood = catInstance.getHunger() <= 20 ? "idle-to-annoyed" : "happy";
+		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (action === "play") {
 		mood =
-			catInstance.getHunger() <= 20
+			hunger <= 20
 				? "idle-to-annoyed"
 				: "idle-to-excited";
 	} else if (action === "groom") {
-		mood = catInstance.getHunger() <= 20 ? "idle-to-annoyed" : "happy";
+		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (
-		catInstance.getHunger() <= 20 &&
-		catInstance.getHappiness() <= 20
+		catInstance.hunger <= 20 &&
+		catInstance.happiness <= 20
 	) {
 		mood = "idle-to-angry";
-	} else if (catInstance.getHunger() <= 20) {
+	} else if (hunger <= 20) {
 		mood = "hungry";
-	} else if (catInstance.getHappiness() <= 20) {
+	} else if (happiness <= 20) {
 		mood = "bored";
 	} else if (action === "feed") {
 		mood = "happy";
@@ -150,11 +163,10 @@ function setMood(action = null) {
 			"yawn",
 			"idle-to-sleep",
 			"sleep-to-idle",
-			() => catInstance.getEnergy() >= 80,
+			() => energy >= 80,
 		);
 		catInstance.rest();
 	} else if (mood === "inactive-sleep") {
-		console.log("Entering inactive sleep");
 		catInstance.setStatus("Resting");
 		setEmote("sleep");
 		document.querySelector(".cat-eyes").className =
@@ -163,7 +175,6 @@ function setMood(action = null) {
 			`cat-tail idle-to-sleep`;
 		catInstance.rest();
 	} else if (mood === "idle-to-angry") {
-		console.log("Entering angry sequence");
 		catInstance.setStatus("Angry");
 		setEmote("angry");
 		playMoodSequence(
@@ -171,11 +182,10 @@ function setMood(action = null) {
 			"annoyed",
 			"annoyed-to-idle",
 			() =>
-				catInstance.getHunger() >= 60 &&
-				catInstance.getHappiness() >= 60,
+				hunger >= 60 &&
+				hunger >= 60,
 		);
 	} else if (mood === "idle-to-excited") {
-		console.log("Entering excited sequence");
 		catInstance.setStatus("Excited");
 		setEmote("surprised");
 		playMoodSequence(
@@ -185,7 +195,6 @@ function setMood(action = null) {
 			() => Date.now() > excitedUntil,
 		);
 	} else if (mood === "idle-to-annoyed") {
-		console.log("Entering annoyed sequence");
 		catInstance.setStatus("Annoyed");
 		playMoodSequence(
 			"idle-to-annoyed",
