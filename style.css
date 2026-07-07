@@ -110,38 +110,11 @@ input[type="submit"], button:hover {
 	background-repeat: no-repeat;
 }
 
-/* .cat-eyes, cat {
-	width: 180px;
-	height: 180px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	
-}
-
-.cat-tail {
-	width: 180px;
-	height: 180px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-repeat: no-repeat;
-}
-
-.cat-emote {
-	width: 180px;
-	height: 180px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-repeat: no-repeat;
-} */
-
 /* Eye animations */
 .cat-eyes.idle {
 	background-image: url('assets/eyes/eyes-blink.PNG');
 	background-size: 1440px 180px;
-	animation: play-8-infinite 0.8s steps(8) infinite;
+	animation: play-8-infinite 1.6s steps(8) infinite;
 }
 
 .cat-eyes.hungry, .cat-eyes.bored, .cat-eyes.idle-to-sleep, .cat-eyes.idle-to-annoyed {
@@ -185,8 +158,14 @@ input[type="submit"], button:hover {
 	animation: play-6-forwards 0.8s steps(5) forwards;
 }
 
+.cat-eyes.eating {
+	background-image: url('assets/eyes/eyes-eating.PNG');
+	background-size: 2160px 180px;
+	animation: play-12-forwards 1.8s steps(11) forwards;
+}
+
 /* Tail animations */
-.cat-tail.idle, .cat-tail.hungry, .cat-tail.bored {
+.cat-tail.idle, .cat-tail.hungry, .cat-tail.bored, .cat-tail.feed {
 	background-image: url('assets/tails/tail-idle.PNG');
 	background-size: 1440px 180px;
 	animation: play-8-infinite 1s steps(8) infinite;
@@ -271,6 +250,11 @@ input[type="submit"], button:hover {
 @keyframes play-9-forwards {
 	from { background-position: 0 0; }
 	to { background-position: -1440px 0; }
+}
+
+@keyframes play-12-forwards {
+	from { background-position: 0 0; }
+	to { background-position: -1980px 0; }
 }
 
 /* Infinite versions */
