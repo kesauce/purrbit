@@ -1,8 +1,15 @@
-# Purrbit
-**Reference IDs:** 6JLKEQ5T &
+<div align="center">
+    <img width="128" height="128" alt="icon128-export" src="https://github.com/user-attachments/assets/7def6d69-b6f5-4f05-a434-df8c7945ecf1" />
+</div>
 
-## Overview
-Purrbit is a game built as a Chrome extension, inspired by the original Tamagotchi games where users take care of a pixel cat instead. Keep hunger, happiness, energy, and cleanliness up through feeding, playing, grooming, and petting.
+
+<h1 align="center">Purrbit</h1>
+
+  <p align="center">
+    <strong>Reference ID:</strong> 6JLKEQ5T <br>
+    Purrbit is a game built as a Chrome extension, inspired by the original Tamagotchi games where users take care of a pixel cat instead. Keep hunger, happiness, energy, and cleanliness up through feeding, playing, grooming, and petting.
+  </p>
+</div>
 
 ## Structure
 ```
