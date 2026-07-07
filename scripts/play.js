@@ -21,7 +21,11 @@ let score = 0;
 let currentWord = "";
 let currentAnswer = 0;
 
-//Timer for each word/equation that ticks down every second
+/**
+ * Starts a timer for the current word/equation and calls onExpire when
+ * the timer runs out.
+ * @param {Function} onExpire 
+ */
 function startTimer(onExpire) {
     clearInterval(timer);
     timeLeft = TIME_PER_WORD;
@@ -37,7 +41,10 @@ function startTimer(onExpire) {
     }, 1000);
 }
 
-//Timer for the whole game
+/**
+ * Starts a timer for the whole game (set to 2 minutes).
+ * When the timer is up, it shows the user's final score.
+ */
 function startGameTimer() {
     gameTimeLeft = GAME_TIME;
 
@@ -57,9 +64,12 @@ function startGameTimer() {
     }, 1000);
 }
 
-//Typing game
+// ────── Typing Game ──────
 const words = ["fish", "purr", "treat", "meow", "play", "bird", "paw", "yarn", "mice"];
 
+/**
+ * Starts the typing game.
+ */
 function startTypingGame() {
     document.getElementById("typing-game").style.display = "block";
     document.getElementById("math-game").style.display = "none";
@@ -67,6 +77,11 @@ function startTypingGame() {
     showWord();
 }
 
+/**
+ * Shows a word chosen from the array of words.
+ * It also starts a timer that shows the next word if
+ * it runs out.
+ */
 function showWord() {
     currentWord = words[Math.floor(Math.random() * words.length)];
     wordDisplay.textContent = currentWord;
@@ -78,6 +93,11 @@ function showWord() {
     });
 }
 
+/**
+ * A listener that checks if the text inputted by the user
+ * matches the text shown. When it matches, the cat's happiness
+ * is increased. There's no penalty for the wrong spelling.
+ */
 wordInput.addEventListener("input", (e) => {
     if (e.target.value === currentWord) {
         score += 10;
@@ -88,7 +108,10 @@ wordInput.addEventListener("input", (e) => {
     }
 });
 
-//Math game
+// ────── Math Game ──────
+/**
+ * Starts the math game.
+ */
 function startMathGame() {
     document.getElementById("typing-game").style.display = "none";
     document.getElementById("math-game").style.display = "block";
@@ -96,6 +119,12 @@ function startMathGame() {
     showEquation();
 }
 
+/**
+ * Shows an equation created randomly.
+ * To make it easier, only addition is used.
+ * It also starts a timer that shows the next
+ * equation if it runs out.
+ */
 function showEquation() {
     const a = Math.floor(Math.random() * 10) + 1;
     const b = Math.floor(Math.random() * 10) + 1;
@@ -110,6 +139,12 @@ function showEquation() {
     });
 }
 
+/**
+ * A listener that checks if the answer inputted by the user
+ * is correct. If correct, the cat's happiness
+ * is increased. There's no penalty for the wrong answer as
+ * it only triggers when the input is correct.
+ */
 mathInput.addEventListener("input", (e) => {
     if (parseInt(e.target.value) === currentAnswer) {
         score += 10;
@@ -120,7 +155,7 @@ mathInput.addEventListener("input", (e) => {
     }
 });
 
-//Start game
+// ────── Start Game ──────
 async function startGame() {
     const { cat } = await chrome.storage.local.get("cat");
     catInstance = Object.assign(new Cat(), cat);
@@ -129,6 +164,7 @@ async function startGame() {
     scoreElement.textContent = score;
     startGameTimer();
 
+    //Randomly chooses a game
     const game = Math.random() < 0.5 ? "typing" : "math";
     if (game === "typing") {
         startTypingGame();
@@ -136,11 +172,13 @@ async function startGame() {
         startMathGame();
     }
 }
-
-//Clears the timers, saves the state of the cat and returns home automatically
+ /**
+  * Clears the timers, saves the cat's state, and returns to the home page automatically.
+  */
 function endGame() {
     clearInterval(gameTimer);
     clearInterval(timer);
+    subtitleElement.textContent = `Score: ${score}`;
     chrome.storage.local.set({ cat: { ...catInstance } });
     setTimeout(() => window.location.href = "home.html", 2000);
 }

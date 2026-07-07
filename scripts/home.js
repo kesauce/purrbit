@@ -6,12 +6,8 @@ let inactivityTimer;
 
 // ────── Initialise Cat ──────
 async function initialiseGame() {
-	// window.location.href = "play.html";
 	// Check if there's a saved state in the Chrome storage
 	const { cat } = await chrome.storage.local.get("cat");
-
-	//DEbugging
-	chrome.storage.local.get("cat", (data) => console.log(data));
 
 	// Create a new cat if it doesn't exit
 	if (!cat) {
@@ -109,27 +105,19 @@ async function initialiseGame() {
 }
 
 // ────── Mood ──────
+/**
+ * Sets the mood based on specific actions and stats.
+ * Energy is the most important, so once it hits the threshold, the cat will go to sleep.
+ * Then mood is determined based on action with specific constraints, then status, then actions in general.
+ * The second conditions check the mood that was set initially and applies the correct animation.
+ * @param {string} action 
+ */
 function setMood(action = null) {
-	//DEBUGGIGN
-	console.log("setMood called with action:", action);
-	console.log(
-		"Stats - Energy:",
-		catInstance.getEnergy(),
-		"Hunger:",
-		catInstance.getHunger(),
-		"Happiness:",
-		catInstance.getHappiness(),
-		"Status:",
-		catInstance.getStatus(),
-	);
-
 	let mood;
 
-	//Energy is most important of all, no matter the other stats if the cat is tired it will sleep
-	//Rest of mood based on stats
 	if (catInstance.getEnergy() <= 10) {
 		mood = "tired-sleep";
-	} else if (action === "pat") {
+	} else if (action === "pet") {
 		mood = catInstance.getHunger() <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (action === "play") {
 		mood =
@@ -169,7 +157,6 @@ function setMood(action = null) {
 		console.log("Entering inactive sleep");
 		catInstance.setStatus("Resting");
 		setEmote("sleep");
-		//No sequence needed as it just handles going to sleep
 		document.querySelector(".cat-eyes").className =
 			`cat-eyes idle-to-sleep`;
 		document.querySelector(".cat-tail").className =
@@ -227,26 +214,30 @@ function setMood(action = null) {
 	updateUI();
 }
 
+/**
+ * Sets an emote that accompanies the cat if needed.
+ * @param {string} emote 
+ */
 function setEmote(emote) {
 	document.querySelector(".cat-emote").className = `cat-emote ${emote}`;
 }
 
-//Helper function for moods that have a sequence
+/**
+ * Helper function that plays a sequence for animations that need to be chained.
+ * It starts with the first transition, and stays on the hold transition if given,
+ * otherwise the end of the first transition is treated as the "hold".
+ * Once the exit condition is fulfilled, it plays the return transition given.
+ * @param {string} transition 
+ * @param {string} hold 
+ * @param {string} returnTransition 
+ * @param {boolean} exitCondition 
+ */
 function playMoodSequence(
 	transition,
 	hold = null,
 	returnTransition,
 	exitCondition = () => true,
 ) {
-	console.log(
-		"playMoodSequence:",
-		transition,
-		"->",
-		hold,
-		"->",
-		returnTransition,
-	);
-
 	document.querySelector(".cat-eyes").className = `cat-eyes ${transition}`;
 	document.querySelector(".cat-tail").className = `cat-tail ${transition}`;
 
@@ -274,29 +265,36 @@ const catHead = document.getElementById("cat-head");
 let petTimer;
 let petHappinessInterval;
 
-//Checks if cursor entered the petting area
+/**
+ * A listener that checks if the cursor entered the head area.
+ * If the cat is sleeping, it will not trigger.
+ * If the cursor has been on the area for 2 seconds, it will
+ * trigger the petting animation and increase happiness every 5 seconds.
+ */
 catHead.addEventListener("mouseenter", () => {
-	console.log("Mouse entered cat head, status:", catInstance.getStatus());
 	if (
 		catInstance.getStatus() === "Asleep" ||
 		catInstance.getStatus() === "Resting"
 	)
 		return;
+
 	petTimer = setTimeout(() => {
 		isPetting = true;
-		setMood("pat");
+		setMood("pet");
 
 		//Increase happiness while being petted
 		petHappinessInterval = setInterval(() => {
 			catInstance.pet();
 			saveState();
-		}, 2000);
+		}, 5000);
 	}, 2000);
 });
 
-//Checks if cursor leaves the area
+/**
+ * A listener that checks if the cursor leaves the head area.
+ * It clears the timer and interval, and resets the mood.
+ */
 catHead.addEventListener("mouseleave", () => {
-	console.log("Mouse left cat head");
 	if (
 		catInstance.getStatus() === "Asleep" ||
 		catInstance.getStatus() === "Resting"
@@ -310,11 +308,21 @@ catHead.addEventListener("mouseleave", () => {
 });
 
 // ────── Update UI ──────
+/**
+ * Updates the cat status displayed on the page.
+ */
 function updateUI() {
 	document.getElementById("cat-status").textContent = catInstance.getStatus();
 }
 
 // ────── Inactivity ──────
+/**
+ * Resets inactivity whenever the cursor moves.
+ * It clears the timeout, and if the cat is currently
+ * resting due to inactivity, it is woken up.
+ * If the user is inactive for 3 minutes, the cat returns
+ * into an inactive state.
+ */
 function resetInactivity() {
 	clearTimeout(inactivityTimer);
 
@@ -334,7 +342,11 @@ document.addEventListener("mousemove", resetInactivity);
 document.addEventListener("click", resetInactivity);
 
 // ────── Stat Decay (5mins) ──────
-//Update the cat's stats every 5 minutes
+/**
+ * Updates the cat's stats every 5 minutes.
+ * If the cat is asleep in any way or is being petted,
+ * then the stat decay won't trigger.
+ */
 setInterval(() => {
 	if (
 		catInstance.getStatus() !== "Asleep" &&
@@ -346,10 +358,12 @@ setInterval(() => {
 		setMood();
 		saveState();
 	}
-}, 6000);
-// 1000 * 60 * 5
+}, 1000 * 60 * 5);
 
-// ────── Save State ────── Use in every event
+// ────── Save State ────── 
+/**
+ * Saves the cat's state after every event.
+ */
 function saveState() {
 	chrome.storage.local.set({ cat: { ...catInstance } });
 }

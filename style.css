@@ -50,7 +50,10 @@ input[type="submit"], button:hover {
 }
 
 .top-nav {
-	margin-top: 10px;
+	position: fixed;
+	top: 0;
+	padding: 5px 10px;
+
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -312,4 +315,11 @@ input[type="submit"], button:hover {
 	html {
 		filter: invert(1);
 	}
+}
+
+@media (min-width: 300px) {
+	body {
+		height: 100vh;
+	}
+
 }
