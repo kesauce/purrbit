@@ -8,12 +8,19 @@
   },
   "web_accessible_resources": [
     {
-      "resources": [ "../assets/bgm/bgm-marimba.wav", "../assets/bgm/bgm-piano.wav" ],
+      "resources": [ "assets/bgm/bgm-marimba.wav", "assets/bgm/bgm-piano.wav", "assets/bgm/bgm-strings.wav", "assets/bgm/bgm-synth.wav", "assets/bgm/bgm-wind.wav" ],
 	  "matches": [ "<all_urls>" ]
 	}
 	],
   "permissions": ["storage", "sidePanel", "tabs"],
   "background": {
-  "service_worker": "../scripts/background.js"
-}
+    "service_worker": "scripts/background.js"
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+
 }
