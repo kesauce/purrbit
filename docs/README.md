@@ -69,7 +69,7 @@ We wanted the cat to be simple to draw, but also feel alive — so every part of
 
 ![Old design of the cat](old-cat-design.PNG) ![New design of the cat](new-cat-design.PNG)
 
-We kept the UI minimal and pixel-art styled to match the cat, paired with the Dogica pixel font throughout. We had originally planned for just the outline of the cat the cat’s feeties could show. However, it made it difficult to animate the tail, as we had to make sure that the outline of the tail was consistent while making the tail animation fluid. Inconsistencies in the line thickness would be noticeable, so we decided to fully color the cat. This made it significantly easier to animate and line inconsistencies weren’t seen.
+We kept the UI minimal and pixel-art styled to match the cat, paired with the Dogica pixel font throughout. We had originally planned for just the outline of the cat so the cat’s feeties could show. However, it made it difficult to animate the tail, as we had to make sure that the outline of the tail was consistent while making the tail animation fluid. Inconsistencies in the line thickness would be noticeable, so we decided to fully color the cat. This made it significantly easier to animate and line inconsistencies weren’t as visible.
 
 ## Technical Architecture
 ### Data persistence
