@@ -132,13 +132,6 @@ function setMood(action = null) {
 		mood = "happy";
 	} else if (action === "pet") {
 		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
-	} else if (action === "play") {
-		mood =
-			hunger <= 20
-				? "idle-to-annoyed"
-				: "idle-to-excited";
-	} else if (action === "groom") {
-		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (
 		catInstance.hunger <= 20 &&
 		catInstance.happiness <= 20
@@ -149,7 +142,7 @@ function setMood(action = null) {
 	} else if (happiness <= 20) {
 		mood = "bored";
 	} else if (action === "feed") {
-		mood = "happy";
+		mood = "idle-to-excited";
 	} else if (action === "inactive") {
 		mood = "inactive-sleep";
 	} else {
