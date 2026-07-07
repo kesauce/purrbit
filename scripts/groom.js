@@ -57,7 +57,7 @@ function showCat() {
 	img.style.cssText = "width:80%;height:80%;object-fit:contain;";
 	grid.children[activeHole].appendChild(img);
 
-	const delay = Math.max(500, 1400 - score * 30); // gets faster as score rises
+	const delay = Math.max(750, 1400 - score * 30); // gets faster as score rises
 	catTimer = setTimeout(() => {
 		hideCat(activeHole);
 		if (playing) showCat();

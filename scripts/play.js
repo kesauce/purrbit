@@ -180,7 +180,7 @@ function endGame() {
     clearInterval(timer);
     subtitleElement.textContent = `Score: ${score}`;
     chrome.storage.local.set({ cat: { ...catInstance } });
-    setTimeout(() => window.location.href = "home.html", 2000);
+    window.location.href = "home.html"
 }
 
 startGame();
