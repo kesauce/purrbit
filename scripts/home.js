@@ -32,6 +32,9 @@ async function initialiseGame() {
 			<img id="groom-button" src="../assets/icons/brush.png" />
 		</div>
 		<div class="icon-container">
+			<img id="play-button" src="../assets/icons/mouse.png" />
+		</div>
+		<div class="icon-container">
 			<img id="settings-button" src="../assets/icons/settings.png" />
 		</div>
 	`;
@@ -58,19 +61,18 @@ async function initialiseGame() {
 			saveState();
 			bindFeedNav();
 		});
-		document
-			.getElementById("groom-button")
-			.addEventListener("click", () => {
-				saveState();
-				window.location.href = "groom.html";
-			});
-		document
-			.getElementById("settings-button")
-			.addEventListener("click", () => {
-				saveState();
-				window.location.href = "settings.html";
-			});
-		//play button
+		document.getElementById("groom-button").addEventListener("click", () => {
+			saveState();
+			window.location.href = "groom.html";
+		});
+		document.getElementById("settings-button").addEventListener("click", () => {
+			saveState();
+			window.location.href = "settings.html";
+		});
+		document.getElementById("play-button").addEventListener("click", () => {
+			saveState();
+			window.location.href = "play.html";
+		});
 	}
 
 	function bindFeedNav() {
@@ -85,24 +87,20 @@ async function initialiseGame() {
 			saveState();
 			bindMainNav();
 		});
-		document
-			.getElementById("canned-button")
-			.addEventListener("click", () => {
-				catInstance.feed(40);
-				excitedUntil = Date.now() + 5000;
-				setMood("feed");
-				saveState();
-				bindMainNav();
-			});
-		document
-			.getElementById("treat-button")
-			.addEventListener("click", () => {
-				catInstance.feed(20);
-				excitedUntil = Date.now() + 5000;
-				setMood("feed");
-				saveState();
-				bindMainNav();
-			});
+		document.getElementById("canned-button").addEventListener("click", () => {
+			catInstance.feed(40);
+			excitedUntil = Date.now() + 5000;
+			setMood("feed");
+			saveState();
+			bindMainNav();
+		});
+		document.getElementById("treat-button").addEventListener("click", () => {
+			catInstance.feed(20);
+			excitedUntil = Date.now() + 5000;
+			setMood("feed");
+			saveState();
+			bindMainNav();
+		});
 	}
 
 	bindMainNav();
@@ -117,7 +115,7 @@ async function initialiseGame() {
  * Energy is the most important, so once it hits the threshold, the cat will go to sleep.
  * Then mood is determined based on action with specific constraints, then status, then actions in general.
  * The second conditions check the mood that was set initially and applies the correct animation.
- * @param {string} action 
+ * @param {string} action
  */
 function setMood(action = null) {
 	let mood;
@@ -133,16 +131,10 @@ function setMood(action = null) {
 	} else if (action === "pet") {
 		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
 	} else if (action === "play") {
-		mood =
-			hunger <= 20
-				? "idle-to-annoyed"
-				: "idle-to-excited";
+		mood = hunger <= 20 ? "idle-to-annoyed" : "idle-to-excited";
 	} else if (action === "groom") {
 		mood = hunger <= 20 ? "idle-to-annoyed" : "happy";
-	} else if (
-		catInstance.hunger <= 20 &&
-		catInstance.happiness <= 20
-	) {
+	} else if (catInstance.hunger <= 20 && catInstance.happiness <= 20) {
 		mood = "idle-to-angry";
 	} else if (hunger <= 20) {
 		mood = "hungry";
@@ -159,20 +151,13 @@ function setMood(action = null) {
 	if (mood === "tired-sleep") {
 		catInstance.setStatus("Asleep");
 		setEmote("sleep");
-		playMoodSequence(
-			"yawn",
-			"idle-to-sleep",
-			"sleep-to-idle",
-			() => energy >= 80,
-		);
+		playMoodSequence("yawn", "idle-to-sleep", "sleep-to-idle", () => energy >= 80);
 		catInstance.rest();
 	} else if (mood === "inactive-sleep") {
 		catInstance.setStatus("Resting");
 		setEmote("sleep");
-		document.querySelector(".cat-eyes").className =
-			`cat-eyes idle-to-sleep`;
-		document.querySelector(".cat-tail").className =
-			`cat-tail idle-to-sleep`;
+		document.querySelector(".cat-eyes").className = `cat-eyes idle-to-sleep`;
+		document.querySelector(".cat-tail").className = `cat-tail idle-to-sleep`;
 		catInstance.rest();
 	} else if (mood === "idle-to-angry") {
 		catInstance.setStatus("Angry");
@@ -181,9 +166,7 @@ function setMood(action = null) {
 			"idle-to-annoyed",
 			"annoyed",
 			"annoyed-to-idle",
-			() =>
-				hunger >= 60 &&
-				hunger >= 60,
+			() => hunger >= 60 && hunger >= 60,
 		);
 	} else if (mood === "idle-to-excited") {
 		catInstance.setStatus("Excited");
@@ -196,12 +179,7 @@ function setMood(action = null) {
 		);
 	} else if (mood === "idle-to-annoyed") {
 		catInstance.setStatus("Annoyed");
-		playMoodSequence(
-			"idle-to-annoyed",
-			"annoyed",
-			"annoyed-to-idle",
-			() => !isPetting,
-		);
+		playMoodSequence("idle-to-annoyed", "annoyed", "annoyed-to-idle", () => !isPetting);
 	} else {
 		//Simple moods that map to a status and emote
 		const emoteMap = {
@@ -225,7 +203,7 @@ function setMood(action = null) {
 
 /**
  * Sets an emote that accompanies the cat if needed.
- * @param {string} emote 
+ * @param {string} emote
  */
 function setEmote(emote) {
 	document.querySelector(".cat-emote").className = `cat-emote ${emote}`;
@@ -236,17 +214,12 @@ function setEmote(emote) {
  * It starts with the first transition, and stays on the hold transition if given,
  * otherwise the end of the first transition is treated as the "hold".
  * Once the exit condition is fulfilled, it plays the return transition given.
- * @param {string} transition 
- * @param {string} hold 
- * @param {string} returnTransition 
- * @param {boolean} exitCondition 
+ * @param {string} transition
+ * @param {string} hold
+ * @param {string} returnTransition
+ * @param {boolean} exitCondition
  */
-function playMoodSequence(
-	transition,
-	hold = null,
-	returnTransition,
-	exitCondition = () => true,
-) {
+function playMoodSequence(transition, hold = null, returnTransition, exitCondition = () => true) {
 	document.querySelector(".cat-eyes").className = `cat-eyes ${transition}`;
 	document.querySelector(".cat-tail").className = `cat-tail ${transition}`;
 
@@ -259,10 +232,8 @@ function playMoodSequence(
 		const holdInterval = setInterval(() => {
 			if (exitCondition()) {
 				clearInterval(holdInterval);
-				document.querySelector(".cat-eyes").className =
-					`cat-eyes ${returnTransition}`;
-				document.querySelector(".cat-tail").className =
-					`cat-tail ${returnTransition}`;
+				document.querySelector(".cat-eyes").className = `cat-eyes ${returnTransition}`;
+				document.querySelector(".cat-tail").className = `cat-tail ${returnTransition}`;
 				setTimeout(() => setMood(), 800);
 			}
 		}, 500);
@@ -281,11 +252,7 @@ let petHappinessInterval;
  * trigger the petting animation and increase happiness every 5 seconds.
  */
 catHead.addEventListener("mouseenter", () => {
-	if (
-		catInstance.getStatus() === "Asleep" ||
-		catInstance.getStatus() === "Resting"
-	)
-		return;
+	if (catInstance.getStatus() === "Asleep" || catInstance.getStatus() === "Resting") return;
 
 	petTimer = setTimeout(() => {
 		isPetting = true;
@@ -304,11 +271,7 @@ catHead.addEventListener("mouseenter", () => {
  * It clears the timer and interval, and resets the mood.
  */
 catHead.addEventListener("mouseleave", () => {
-	if (
-		catInstance.getStatus() === "Asleep" ||
-		catInstance.getStatus() === "Resting"
-	)
-		return;
+	if (catInstance.getStatus() === "Asleep" || catInstance.getStatus() === "Resting") return;
 	clearTimeout(petTimer);
 	clearInterval(petHappinessInterval);
 	isPetting = false;
@@ -336,10 +299,8 @@ function resetInactivity() {
 	clearTimeout(inactivityTimer);
 
 	if (catInstance.getStatus() === "Resting") {
-		document.querySelector(".cat-eyes").className =
-			`cat-eyes sleep-to-idle`;
-		document.querySelector(".cat-tail").className =
-			`cat-tail sleep-to-idle`;
+		document.querySelector(".cat-eyes").className = `cat-eyes sleep-to-idle`;
+		document.querySelector(".cat-tail").className = `cat-tail sleep-to-idle`;
 		setEmote("none");
 		setTimeout(() => setMood(), 800);
 	}
@@ -356,20 +317,23 @@ document.addEventListener("click", resetInactivity);
  * If the cat is asleep in any way or is being petted,
  * then the stat decay won't trigger.
  */
-setInterval(() => {
-	if (
-		catInstance.getStatus() !== "Asleep" &&
-		catInstance.getStatus() !== "Resting" &&
-		!isPetting
-	) {
-		catInstance.updateStats();
-		//Set mood depending on stats
-		setMood();
-		saveState();
-	}
-}, 1000 * 60 * 5);
+setInterval(
+	() => {
+		if (
+			catInstance.getStatus() !== "Asleep" &&
+			catInstance.getStatus() !== "Resting" &&
+			!isPetting
+		) {
+			catInstance.updateStats();
+			//Set mood depending on stats
+			setMood();
+			saveState();
+		}
+	},
+	1000 * 60 * 5,
+);
 
-// ────── Save State ────── 
+// ────── Save State ──────
 /**
  * Saves the cat's state after every event.
  */

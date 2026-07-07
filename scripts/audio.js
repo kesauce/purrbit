@@ -22,6 +22,8 @@ async function startMusic() {
 		bgmPath = "../assets/bgm/bgm-strings.wav";
 	} else if (window.location.href.includes("settings.html")) {
 		bgmPath = "../assets/bgm/bgm-wind.wav";
+	} else if (window.location.href.includes("play.html")) {
+		bgmPath = "../assets/bgm/bgm-synth.wav";
 	}
 
 	const url = chrome.runtime.getURL(bgmPath);
@@ -49,7 +51,7 @@ startMusic();
 if (window.location.href.includes("settings.html")) {
 	document.getElementById("volume").addEventListener("input", async (e) => {
 		gainNode.gain.value = e.target.value;
-		
+
 		// Set volume preference
 		await chrome.storage.local.set({ volume: e.target.value });
 	});
