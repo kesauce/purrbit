@@ -192,7 +192,7 @@ input[type="submit"], button:hover {
 .cat-tail.sleep-to-idle, .cat-tail.annoyed-to-idle {
 	background-image: url('assets/tails/tail-to-tall.PNG');
 	background-size: 1620px 180px;
-	animation: play-9-forwards 1s steps(8) reverse forwards;
+	animation: play-9-forwards 1s steps(8) forwards;
 }
 
 /* emotes to add on to cat */

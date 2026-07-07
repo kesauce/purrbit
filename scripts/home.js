@@ -185,6 +185,8 @@ function setMood(action = null) {
 
 	if (energy <= 10) {
 		mood = "tired-sleep";
+	} else if (action === "full") {
+		mood = "idle-to-annoyed";
 	} else if (hunger >= 80 && happiness >= 80 && energy >= 80 && cleanliness >= 80) {
 		mood = "happy";
 	} else if (action === "pet") {
@@ -201,8 +203,6 @@ function setMood(action = null) {
 		mood = "hungry";
 	} else if (happiness <= 20) {
 		mood = "bored";
-	} else if (action === "full") {
-		mood = "idle-to-annoyed";
 	} else if (action === "inactive") {
 		mood = "inactive-sleep";
 	} else {
@@ -240,8 +240,16 @@ function setMood(action = null) {
 		);
 	} else if (mood === "idle-to-annoyed") {
 		catInstance.setStatus("Annoyed");
-		const exitCondition =
-			action === "full" ? () => catInstance.getHunger() < 90 : () => !isPetting;
+		setEmote("none");
+		let exitCondition;
+
+		if (action === "full") {
+			const annoyedUntil = Date.now() + 8000; //Annoyed for 4 seconds
+			exitCondition = () => Date.now() > annoyedUntil;
+		} else {
+			exitCondition = () => !isPetting;
+		}
+
 		playMoodSequence("idle-to-annoyed", "annoyed", "annoyed-to-idle", exitCondition);
 	} else {
 		//Simple moods that map to a status and emote
@@ -381,7 +389,7 @@ document.addEventListener("click", resetInactivity);
  * If the cat is asleep in any way or is being petted,
  * then the stat decay won't trigger.
  */
-setInterval(
+setInterval (
 	() => {
 		if (
 			catInstance.getStatus() !== "Asleep" &&
@@ -393,8 +401,7 @@ setInterval(
 			setMood();
 			saveState();
 		}
-	},
-	1000 * 60 * 5,
+	}, 1000 * 60 * 5
 );
 
 // ────── Save State ──────

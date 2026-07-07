@@ -54,9 +54,9 @@ export default class Cat {
     }
 
     updateStats() {
-        this.hunger = Math.max(0, this.hunger - 1); //Supposed to be 1, using 20 for testing
+        this.hunger = Math.max(0, this.hunger - 1);
         this.happiness = Math.max(0, this.happiness - 1);
-        this.energy = Math.max(0, this.energy - 20);
+        this.energy = Math.max(0, this.energy - 1);
         this.cleanliness = Math.max(0, this.cleanliness - 1);
     }
 
